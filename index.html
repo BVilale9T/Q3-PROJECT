@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Grand Trip</title>
+    <link rel="stylesheet" href="styles.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: right;
+            background-color: grey;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .logo {
+
+            width: 200px;  /* Adjust size as needed */
+            height: auto;
+
+        }
+        .header {
+            background-color: #D4AF37;
+            padding: 15px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .fare-box {
+            background-color: black;
+            color: white;
+            padding: 20px;
+            font-size: 36px;
+            font-weight: bold;
+            width: 200px;
+        }
+        .fare-options button {
+            margin: 5px;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .additional-content {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+        .additional-content h3 {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <img src="Grand_Trip.png.png" alt="Logo" class="logo">
+    <div class="header">
+        <h1>The Grand Trip </h1>
+    </div>
+    <div class="container">
+        <div>
+            
+            <h2>LEAVING FROM:</h2>
+            <select id="fromStation">
+    <option value="1">Baclaran</option>
+    <option value="2">Redemptorist</option>
+    <option value="3">EDSA</option>
+    <option value="4">Libertad</option>
+    <option value="5">Gil Puyat</option>
+    <option value="6">Vito Cruz</option>
+    <option value="7">Quirino Avenue</option>
+    <option value="8">Pedro Gil</option>
+    <option value="9">Remedios</option>
+    <option value="10">UN Avenue</option>
+    <option value="11">Central Terminal</option>
+    <option value="12">Carriedo</option>
+    <option value="13">Roosevelt</option>
+    <option value="14">Fernando Poe Jr. (FPJ)</option>
+            </select>
+            <h2>GOING TO:</h2>
+            
+           <select id="toStation">
+                <option value="1">Baclaran</option>
+    <option value="2">Redemptorist</option>
+    <option value="3">EDSA</option>
+    <option value="4">Libertad</option>
+    <option value="5">Gil Puyat</option>
+    <option value="6">Vito Cruz</option>
+    <option value="7">Quirino Avenue</option>
+    <option value="8">Pedro Gil</option>
+    <option value="9">Remedios</option>
+    <option value="10">UN Avenue</option>
+    <option value="11">Central Terminal</option>
+    <option value="12">Carriedo</option>
+    <option value="13">Roosevelt</option>
+    <option value="14">Fernando Poe Jr. (FPJ)</option>
+           </select> 
+            <div class="fare-options">
+                <button onclick="calculateFare('ticketPrice')">Regular Fare</button>
+                <button onclick="DiscountedFare('ticketPrice')">Discounted Fare</button>
+            </div>
+        </div>
+        <center>
+        <div class="fare-box"  style="padding-bottom: 95px;">
+            <span id="ticketPrice">--</span>
+            <br>
+            <img src="map.png" alt="Map">
+        </div>
+        </center>
+    </div>
+   
+    <div class="additional-content">
+        <h3>How to Load Beep Card</h3>
+        <p>To load your Beep card, visit any authorized loading station, vending machine, or partner convenience store. Follow the on-screen instructions or ask for assistance.</p>
+       
+        <h3>Passenger Tips and Reminders</h3>
+        <ul>
+            <li>Always line up properly at the ticket counters and entry gates.</li>
+            <li>Give priority to senior citizens, PWDs, and pregnant women.</li>
+            <li>Keep your belongings secure and be aware of your surroundings.</li>
+            <li>Follow station rules and regulations for a smooth journey.</li>
+        </ul>
+       
+        <h3>Related Articles</h3>
+        <ul>
+            <li><a href="#">MRT and LRT Fare Comparison</a></li>
+            <li><a href="#">Best Times to Ride the Train</a></li>
+            <li><a href="#">Public Transport Safety Tips</a></li>
+        </ul>
+    </div>
+   
+    <script>
+        // Change the normal fee here
+        NormalFee = 15 
+
+        function calculateFare(id) {
+          FromStation = Number(document.getElementById('fromStation').value);
+          ToStation = Number(document.getElementById('toStation').value); 
+
+          Multiplier = null
+          FinalFee = null
+
+          if (FromStation > ToStation){
+            Multiplier = FromStation - ToStation
+            FinalFee = NormalFee * Multiplier
+          } else if(FromStation < ToStation){
+            Multiplier = ToStation - FromStation
+            FinalFee = NormalFee * Multiplier
+          } else {
+            Multiplier = 0
+            FinalFee = "Error"
+            console.log('Btoh same stations')
+          }
+
+
+
+
+
+          document.getElementById(id).innerHTML = FinalFee + ' Php'
+        };
+
+        function DiscountedFare(id){
+            FromStation = Number(document.getElementById('fromStation').value);
+            ToStation = Number(document.getElementById('toStation').value); 
+
+            Multiplier = null
+            FinalFee = null
+
+            if (FromStation > ToStation){
+             Multiplier = FromStation - ToStation
+             FinalFee = (NormalFee * Multiplier) * 0.80
+            } else if(FromStation < ToStation){
+             Multiplier = ToStation - FromStation
+             FinalFee = (NormalFee * Multiplier) * 0.80
+            }else{
+             Multiplier = 0
+             FinalFee = "Error"
+             console.log('Btoh same stations')
+            }
+            document.getElementById(id).innerHTML = FinalFee + ' Php'
+        }
+
+    </script>
+</body>
+</html>
